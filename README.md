@@ -17,6 +17,6 @@ include implementation details.
 
 Contact: henrik@zaenger.lu
 
-![Screenshot_20260102-005421.png](Screenshot_20260102-005421.png)
-![Screenshot_20260102-005500.png](Screenshot_20260102-005500.png)
-![Screenshot_20260102-005905.png](Screenshot_20260102-005905.png)
+<img src="Screenshot_20260102-005421.png" width="300">
+<img src="Screenshot_20260102-005500.png" width="300">
+<img src="Screenshot_20260102-005905.png" width="300">

@@ -5,9 +5,6 @@ This project is an independent, unofficial application.
 It is not affiliated with, endorsed by, or maintained by Restopolis or the Luxembourg Ministry of
 Education.
 
-This repository does not include any proprietary API credentials and is intended for educational
-purposes only.
-
 If you are a rights holder and believe this project causes an issue, please open an issue or contact
 me.
 

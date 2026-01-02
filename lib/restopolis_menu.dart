@@ -29,7 +29,7 @@ class _RestopolisMenuState extends State<RestopolisMenu> {
     fetchMenuData();
   }
 
-  void fetchMenuData() async {
+  Future<void> fetchMenuData() async {
 
     loading = true;
 
@@ -285,6 +285,7 @@ class _RestopolisMenuState extends State<RestopolisMenu> {
     print(result);
     storage.write(key: "customerId", value: result["objects"]["id"].toString());
     storage.write(key: "loggedIn", value: "true");
+    await fetchMenuData();
     setState(() {
       loggedIn = true;
     });

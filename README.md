@@ -1,16 +1,22 @@
-# mlg_app
+# BetterMenu
 
-A new Flutter project.
+### Legal & Usage Notice
+This project is an independent, unofficial application.
+It is not affiliated with, endorsed by, or maintained by Restopolis or the Luxembourg Ministry of
+Education.
 
-## Getting Started
+This repository does not include any proprietary API credentials and is intended for educational
+purposes only.
 
-This project is a starting point for a Flutter application.
+If you are a rights holder and believe this project causes an issue, please open an issue or contact
+me.
 
-A few resources to get you started if this is your first Flutter project:
+Data is obtained from a non-public interface used by the official app. This repository does not
+include implementation details.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Contact: henrik@zaenger.lu
+
+![Screenshot_20260102-005421.png](Screenshot_20260102-005421.png)
+![Screenshot_20260102-005500.png](Screenshot_20260102-005500.png)
+![Screenshot_20260102-005905.png](Screenshot_20260102-005905.png)

@@ -17,6 +17,8 @@ include implementation details.
 
 Contact: henrik@zaenger.lu
 
-<img src="Screenshot_20260102-005421.png" width="300">
-<img src="Screenshot_20260102-005500.png" width="300">
-<img src="Screenshot_20260102-005905.png" width="300">
+<div style="display: flex;">
+  <img src="Screenshot_20260102-005421.png" width="300">
+  <img src="Screenshot_20260102-005500.png" width="300">
+  <img src="Screenshot_20260102-005905.png" width="300">
+</div>

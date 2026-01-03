@@ -184,7 +184,13 @@ class UserManager {
     return _loggedIn!;
   }
   
-  
+  static Future<Account> getAccount() async {
+    var data = await _api.getAccounts();
+    return Account(
+      data["objects"][0]["id"],
+      data["objects"][0]["balance"]
+    );
+  }
   
   static Future<bool> _confirmLogout(BuildContext context) async {
     var confirmed = await showDialog<bool>(context: context, builder: (context) {
@@ -230,6 +236,12 @@ class UserManager {
     }
   }
 
+}
+
+class Account {
+  int id;
+  double balance;
+  Account(this.id, this.balance);
 }
 
 class RestaurantManager {

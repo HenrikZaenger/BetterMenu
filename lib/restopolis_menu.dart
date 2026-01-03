@@ -14,7 +14,7 @@ class RestopolisMenu extends StatefulWidget {
 
 class _RestopolisMenuState extends State<RestopolisMenu> {
 
-  Map<String, dynamic> account = {};
+  Account? account;
   int slider = 25;
   bool loading = true;
   bool loggedIn = false;
@@ -34,6 +34,9 @@ class _RestopolisMenuState extends State<RestopolisMenu> {
     loggedIn = await UserManager.isLoggedIn();
 
     menus = await MenuManager.getMenuForDate(date);
+    if(loggedIn) {
+      account = await UserManager.getAccount();
+    }
 
     setState(() {
       loading = false;
@@ -179,7 +182,7 @@ class _RestopolisMenuState extends State<RestopolisMenu> {
             );
           });
         },
-        label: loggedIn ? Text("${account["objects"][0]["balance"]}€") : Text("LogIn"),
+        label: loggedIn ? Text("${account!.balance}€") : Text("LogIn"),
         icon: loggedIn ? Icon(Icons.add) : Icon(Icons.person),
       ),
       body: loading ? Center(child: CircularProgressIndicator(
@@ -271,7 +274,7 @@ class _RestopolisMenuState extends State<RestopolisMenu> {
 
   void payconiq(int index) async {
     var service = RestopolisApi();
-    var response = await service.getPayconiqLink(accountId: account["objects"][0]["id"].toString(), value: index);
+    var response = await service.getPayconiqLink(accountId: account!.id.toString(), value: index);
     if(response["code"] != 0) {
       return;
     }

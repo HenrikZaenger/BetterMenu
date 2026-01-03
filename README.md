@@ -5,9 +5,6 @@ This project is an independent, unofficial application.
 It is not affiliated with, endorsed by, or maintained by Restopolis or the Luxembourg Ministry of
 Education.
 
-This repository does not include any proprietary API credentials and is intended for educational
-purposes only.
-
 If you are a rights holder and believe this project causes an issue, please open an issue or contact
 me.
 
@@ -17,6 +14,8 @@ include implementation details.
 
 Contact: henrik@zaenger.lu
 
-![Screenshot_20260102-005421.png](Screenshot_20260102-005421.png)
-![Screenshot_20260102-005500.png](Screenshot_20260102-005500.png)
-![Screenshot_20260102-005905.png](Screenshot_20260102-005905.png)
+<div style="display: flex;">
+  <img src="Screenshot_20260102-005421.png" width="30%">
+  <img src="Screenshot_20260102-005500.png" width="30%">
+  <img src="Screenshot_20260102-005905.png" width="30%">
+</div>

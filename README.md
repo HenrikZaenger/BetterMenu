@@ -20,4 +20,4 @@ Contact: henrik@zaenger.lu
   <img src="Screenshot_20260102-005905.png" width="30%">
 </div>
 
-The web version is deployed on: [henrik.zaenger.lu/BetterMenuSite](henrik.zaenger.lu/BetterMenuSite)
+The web version is deployed on: [https://henrik.zaenger.lu/BetterMenuSite](https://henrik.zaenger.lu/BetterMenuSite)

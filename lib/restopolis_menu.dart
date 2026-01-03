@@ -2,9 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:mlg_app/device.dart';
-import 'package:mlg_app/restopolis.dart';
-import 'package:mlg_app/restopolis_settings.dart';
+import 'package:better_menu/restopolis.dart';
+import 'package:better_menu/restopolis_settings.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -19,8 +18,7 @@ class _RestopolisMenuState extends State<RestopolisMenu> {
   int slider = 25;
   bool loading = true;
   bool loggedIn = false;
-  List<Map<String, dynamic>> menuData = [];
-  List<Map<String, dynamic>> restaurants = [];
+  Map<Restaurant, Menu> menus = {};
   DateTime date = DateTime.now();
 
   @override
@@ -33,30 +31,9 @@ class _RestopolisMenuState extends State<RestopolisMenu> {
 
     loading = true;
 
-    menuData = [];
-    restaurants = [];
+    loggedIn = await UserManager.isLoggedIn();
 
-    final storage = FlutterSecureStorage();
-    final restopolisService = RestopolisService();
-
-    final savedIds = await storage.read(key: "restaurantIds");
-    var restaurantIds = (savedIds ?? "").split(",");
-    for(var restaurantId in restaurantIds) {
-      if(restaurantId.isEmpty) break;
-      restaurants.add(await restopolisService.getRestaurant(int.tryParse(restaurantId) ?? 0));
-    }
-
-    for(var restaurant in restaurants) {
-      menuData.add(await restopolisService.getMenu(restaurantId: restaurant["objects"][0]["id"], serviceId: restaurant["objects"][0]["services"][0]["id"], date: date));
-    }
-
-    loggedIn = await storage.read(key: "loggedIn") == "true";
-
-    if(loggedIn) {
-      var hardwareId = await DeviceIdService.getHardwareId();
-
-      account = await restopolisService.getAccounts(hardwareId);
-    }
+    menus = await MenuManager.getMenuForDate(date);
 
     setState(() {
       loading = false;
@@ -73,8 +50,8 @@ class _RestopolisMenuState extends State<RestopolisMenu> {
           IconButton(
             onPressed: () {
               date = date.subtract(Duration(days: 1));
-              fetchMenuData();
               setState(() {
+                fetchMenuData();
               });
             },
             icon: Icon(Icons.arrow_back_ios),
@@ -82,8 +59,8 @@ class _RestopolisMenuState extends State<RestopolisMenu> {
           IconButton(
             onPressed: () {
               date = date.add(Duration(days: 1));
-              fetchMenuData();
               setState(() {
+                fetchMenuData();
               });
             },
             icon: Icon(Icons.arrow_forward_ios),
@@ -212,15 +189,16 @@ class _RestopolisMenuState extends State<RestopolisMenu> {
         padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
           child: Column(
-            children: List.generate(restaurants.length, (restaurantIndex) {
+            children: List.generate(menus.length, (restaurantIndex) {
+              final menu = menus.entries.elementAt(restaurantIndex).value;
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    if(menuData[restaurantIndex]["objects"].length != 0) Row(
+                    if(menu.gangs.isNotEmpty) Row(
                       spacing: 10,
                       children: [
                         Text(
-                          restaurants[restaurantIndex]["objects"][0]["name"],
+                          menu.restaurant.name,
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         Expanded(child: Divider(
@@ -230,11 +208,11 @@ class _RestopolisMenuState extends State<RestopolisMenu> {
                       ],
                     ),
                     Column(
-                      children: List.generate(menuData[restaurantIndex]["objects"].length, (objectIndex) {
+                      children: List.generate(menu.gangs.length, (objectIndex) {
                         return Card(
                           child: ListTile(
                             title: Text(
-                              (menuData[restaurantIndex]["objects"][objectIndex]["names"]["en"] ?? menuData[restaurantIndex]["objects"][objectIndex]["names"]["fr"]) + ":",
+                              "${menu.gangs[objectIndex].name}:",
                               style: TextStyle(
                                 fontSize: Theme.of(context).textTheme.titleMedium?.fontSize,
                                 fontWeight: FontWeight.bold,
@@ -242,9 +220,9 @@ class _RestopolisMenuState extends State<RestopolisMenu> {
                             ),
                             subtitle: Column(
                               mainAxisSize: MainAxisSize.min,
-                              children: List.generate(menuData[restaurantIndex]["objects"][objectIndex]["products"].length, (productIndex) {
+                              children: List.generate(menu.gangs[objectIndex].products.length, (productIndex) {
                                 return Text(
-                                  menuData[restaurantIndex]["objects"][objectIndex]["products"][productIndex]["names"]["fr"],
+                                  menu.gangs[objectIndex].products[productIndex].name,
                                   textAlign: TextAlign.left,
                                 );
                               }),
@@ -277,8 +255,8 @@ class _RestopolisMenuState extends State<RestopolisMenu> {
     var user = combined.split("/").first;
     var code = combined.split("/").last;
     var storage = FlutterSecureStorage();
-    RestopolisService service = RestopolisService();
-    var result = await service.pairAccount(username: user, key: code, hardwareId: await DeviceIdService.getHardwareId());
+    RestopolisApi service = RestopolisApi();
+    var result = await service.pairAccount(username: user, key: code);
     if(result["code"] != 0) {
       return;
     }
@@ -292,7 +270,7 @@ class _RestopolisMenuState extends State<RestopolisMenu> {
   }
 
   void payconiq(int index) async {
-    var service = RestopolisService();
+    var service = RestopolisApi();
     var response = await service.getPayconiqLink(accountId: account["objects"][0]["id"].toString(), value: index);
     if(response["code"] != 0) {
       return;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mlg_app/restopolis_menu.dart';
+import 'package:better_menu/restopolis_menu.dart';
 
 void main() {
   runApp(const MyApp());

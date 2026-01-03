@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "me.h12z.mlg_app"
+    namespace = "me.h12z.better_menu"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -21,7 +21,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "me.h12z.mlg_app"
+        applicationId = "me.h12z.better_menu"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion

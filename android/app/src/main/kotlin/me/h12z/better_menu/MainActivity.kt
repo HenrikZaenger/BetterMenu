@@ -1,4 +1,4 @@
-package me.h12z.mlg_app
+package me.h12z.better_menu
 
 import io.flutter.embedding.android.FlutterActivity
 

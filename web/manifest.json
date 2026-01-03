@@ -1,6 +1,6 @@
 {
-    "name": "mlg_app",
-    "short_name": "mlg_app",
+    "name": "BetterMenu",
+    "short_name": "BetterMenu",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -19,3 +19,5 @@ Contact: henrik@zaenger.lu
   <img src="Screenshot_20260102-005500.png" width="30%">
   <img src="Screenshot_20260102-005905.png" width="30%">
 </div>
+
+The web version is deployed on: [https://henrik.zaenger.lu/BetterMenuSite](https://henrik.zaenger.lu/BetterMenuSite)

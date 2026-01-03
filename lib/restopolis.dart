@@ -265,18 +265,18 @@ class RestaurantManager {
   static Future<void> selectRestaurant(Restaurant restaurant) async {
     var selectedRestaurants = await getSelectedRestaurants();
     selectedRestaurants.add(restaurant);
-    _saveRestaurants(selectedRestaurants);
+    await _saveRestaurants(selectedRestaurants);
   }
   static Future<void> removeRestaurant(int index) async {
     var selectedRestaurants = await getSelectedRestaurants();
     selectedRestaurants.removeAt(index);
-    _saveRestaurants(selectedRestaurants);
+    await _saveRestaurants(selectedRestaurants);
   }
-  static void _saveRestaurants(List<Restaurant> selectedRestaurants) {
+  static Future<void> _saveRestaurants(List<Restaurant> selectedRestaurants) async {
     String jsonString = jsonEncode(
         selectedRestaurants.map((r) => r.toJson()).toList()
     );
-    _storage.write(key: "restaurantIds", value: jsonString);
+    await _storage.write(key: "restaurantIds", value: jsonString);
   }
   static Future<int> getServiceId(Restaurant restaurant) async {
     if(_serviceIds.containsKey(restaurant.id)) {

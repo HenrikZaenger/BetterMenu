@@ -14,6 +14,8 @@ class RestopolisMenu extends StatefulWidget {
 
 class _RestopolisMenuState extends State<RestopolisMenu> {
 
+  late final AppLifecycleListener _listener;
+
   Account? account;
   int slider = 25;
   bool loading = true;
@@ -25,6 +27,19 @@ class _RestopolisMenuState extends State<RestopolisMenu> {
   void initState() {
     super.initState();
     fetchMenuData();
+
+    _listener = AppLifecycleListener(
+      onResume: () {
+        fetchAccountData();
+      }
+    );
+  }
+
+  Future<void> fetchAccountData() async {
+    if(loggedIn) {
+      account = await UserManager.getAccount();
+    }
+    setState(() {});
   }
 
   Future<void> fetchMenuData() async {
@@ -47,6 +62,7 @@ class _RestopolisMenuState extends State<RestopolisMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        forceMaterialTransparency: true,
         title: Text("Menu - ${date.day}.${date.month}.${date.year}"),
         elevation: 3,
         actions: [
@@ -134,6 +150,7 @@ class _RestopolisMenuState extends State<RestopolisMenu> {
                             child: FilledButton(
                               onPressed: () {
                                 payconiq(slider);
+                                Navigator.pop(context);
                               },
                               child: Text("Payconiq")
                             ),
